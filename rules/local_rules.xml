@@ -1,0 +1,35 @@
+<group name="windows_nat_attack,">
+
+  <!-- 1. Target Bridge Rule: Chains directly off the built-in core JSON parent rule (60000) -->
+  <rule id="100399" level="3">
+    <if_sid>60000</if_sid>
+    <field name="win.system.eventID">^4625$</field>
+    <description>Windows: Raw logon failure event caught.</description>
+  </rule>
+
+  <!-- 2. Explicit Threshold Correlation Rule: Counts rule 100399 occurrences -->
+  <rule id="100400" level="12" frequency="5" timeframe="30">
+    <if_matched_sid>100399</if_matched_sid>
+    <description>Hydra Brute-Force Attack Detected targeting Windows Server (192.168.109.132).</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+  </rule>
+
+</group>
+
+<group name="custom,sysmon,windows,">
+
+  <rule id="100001" level="8">
+    <if_sid>92031</if_sid>
+    <description>SOC: Discovery activity (whoami/net) sur $(agent.name)</description>
+    <mitre><id>T1033</id></mitre>
+  </rule>
+
+  <rule id="100002" level="12">
+    <if_sid>92205</if_sid>
+    <description>SOC CRITICAL: PowerShell a cree un executable dans Windows root</description>
+    <mitre><id>T1059.001</id></mitre>
+  </rule>
+
+</group>

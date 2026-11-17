@@ -1,0 +1,7 @@
+*.key
+*.pem
+passwords.txt
+certs/
+*.log
+__pycache__/
+*.pyc

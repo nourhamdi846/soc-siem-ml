@@ -1,0 +1,6 @@
+#!/bin/sh
+WPYTHON_BIN="framework/python/bin/python3"
+SCRIPT_PATH_NAME="$0"
+DIR_NAME="$(cd $(dirname ${SCRIPT_PATH_NAME}); pwd)"
+cd ${DIR_NAME}/..
+exec ${WPYTHON_BIN} ${DIR_NAME}/custom-n8n.py "$@"
